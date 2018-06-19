@@ -1,0 +1,40 @@
+<view class="myorder-header pro-header">
+   <view class='myorder-title'>{{orderInfo.orderInfo}}</view>
+   <view class='myorder-explian'>请在<text class='c-base'>30分钟</text>内支付订单，否则订单将被取消</view>
+</view>
+<view class='orderDetails order-details'>
+  <view class='order-details-li'>
+    <view class='lab-title'>费用明细</view>
+    <view class='order-item'>
+      <text class='price'>￥{{orderInfo.price}}</text>
+      <text>*{{orderInfo.amount}}</text>
+    </view>
+  </view>
+  <view class='order-details-li'>
+  <view class='lab-title'>游客信息</view>
+    <view class='order-item' wx:for="{{orderInfo.linkManDTOList}}">
+      <view>
+        <text class='order-a-title'>联系人:</text>
+        <text>{{item.linkMan}}</text>
+      </view>
+       <view hidden='{{item.telephone?false:true}}'>
+        <text class='order-a-title'>手机号:</text>
+        <text>{{item.telephone}}</text>
+      </view>
+       <view>
+        <text class='order-a-title'>身份证号:</text>
+        <text>{{item.idNo}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='order-list account-list bt'>
+    <view class='toogleli'>
+      <view class='lab-title'>订单总额</view>
+      <view class='order-item'>
+        <text class='toalPrice'>￥{{orderInfo.orderSum}}</text>
+        
+      </view>
+    </view>
+</view>
+<button class=" to-pay" type="primary" bindtap="toWxPay"> 去支付 </button>

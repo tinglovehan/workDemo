@@ -1,0 +1,120 @@
+<import src="../template/list/common.wxml" />
+<!--个人中心头部  -->
+<view wx:if="{{module==='order'}}" class='member-search-box'>
+  <view class='header-tab has-search member-search'>
+    <view class='tab clearfix myorder-tab'>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus==''?'c-base':''}}" url="../list/list?module=order&orderStatus=" open-type="redirect">全部订单</navigator>
+      </view>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus=='wait_pay'?'c-base':''}}" url='../list/list?module=order&orderStatus=wait_pay' open-type="redirect">待支付</navigator>
+      </view>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus=='payed'?'c-base':''}}" url='../list/list?module=order&orderStatus=payed' open-type="redirect">已成交</navigator>
+      </view>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus=='is_finished'?'c-base':''}}" url='../list/list?module=order&orderStatus=is_finished' open-type="redirect">已完结</navigator>
+      </view>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus=='is_closed'?'c-base':''}}" url='../list/list?module=order&orderStatus=is_closed' open-type="redirect">已取消</navigator>
+      </view>
+      <view class='myorder-tab-li'>
+        <navigator class="myorder-tab-li-a {{orderStatus=='retreat_finished'?'c-base':''}}" url='../list/list?module=order&orderStatus=retreat_finished' open-type="redirect">已退款</navigator>
+      </view>
+    </view>
+  </view>
+</view>
+<!--个人中心头部end  -->
+<!--门票  -->
+<view class='head-box ticket-head' wx:elif="{{module=='ticket'}}">
+  <view class='header-tab hs-tab'>
+    <view class='tab clearfix ticket-tab'>
+      <view class='ticket-tab-li tab-li' data-sort="id,{{sortData[0].direction === 'ASC'? 'desc':'asc'}}" bindtap='getSort'>
+        <text class="{{sortData[0].property === 'id' ? 'on' : ''}} tab-li-a">
+          默认排序
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+      </view>
+      <view class='ticket-tab-li tab-li' wx:if="{{sortData[0].property === 'lowPrice'}}" data-sort="lowPrice,{{sortData[0].direction === 'ASC'? 'desc':'asc'}}"
+        bindtap='getSort'>
+        <text class="tab-li-a {{sortData[0].property === 'lowPrice' ? 'on' : ''}}">
+          单价最{{sortData[0].direction === 'DESC' ? '高' : '低'}}
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+        <view class='salsicon'>
+          <text class="font-icon icon-jts {{sortData[0].direction === 'ASC' ? 'active' : ''}}"></text>
+          <text class="font-icon icon-jtx {{sortData[0].direction === 'DESC' ? 'active' : ''}}"></text>
+        </view>
+      </view>
+      <view class='ticket-tab-li tab-li' wx:else data-sort="lowPrice,asc" bindtap='getSort'>
+        <text class="tab-li-a">
+          单价最低
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+        <view class='salsicon'>
+          <text class="font-icon icon-jts"></text>
+          <text class="font-icon icon-jtx"></text>
+        </view>
+      </view>
+      <view class='ticket-tab-li tab-li' wx:if="{{sortData[0].property === 'totalRealMonthQuantity'}}" data-sort="totalRealMonthQuantity,{{sortData[0].direction === 'ASC'? 'desc':'asc'}}"
+        bindtap='getSort'>
+        <text class="tab-li-a {{sortData[0].property === 'totalRealMonthQuantity' ? 'on' : ''}}">
+          销量最{{sortData[0].direction === 'DESC' ? '高' : '低'}}
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+        <view class='salsicon'>
+          <text class="font-icon icon-jts {{sortData[0].direction === 'ASC' ? 'active' : ''}}"></text>
+          <text class="font-icon icon-jtx {{sortData[0].direction === 'DESC' ? 'active' : ''}}"></text>
+        </view>
+      </view>
+      <view class='ticket-tab-li tab-li' wx:else data-sort="totalRealMonthQuantity,desc" bindtap='getSort'>
+        <text class="tab-li-a">
+          销量最高
+        </text>
+        <view class='salsicon'>
+          <text class='font-icon icon-jts '></text>
+          <text class='font-icon icon-jtx'></text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:elif="{{module=='package'}}">
+  <view class='head-box package-head'>
+    <view class='tab clearfix ticket-tab combo-tab'>
+      <view class='tab-li'  bindtap="tapMenu" data-index="0">
+        <text class="ticket-tab-li-a tab-li-a {{Tflag-1==0?'c-base':''}}">
+          <text>{{filterName}}</text>
+        </text>
+      </view>
+      <view class='tab-li' bindtap="tapMenu" data-index="1">
+        <text class="ticket-tab-li-a tab-li-a {{Tflag-1==1?'c-base':''}}">
+          <text>{{sortName}}</text>
+        </text>
+      </view>
+    </view>
+  </view>
+  <view class="tab-search-panel {{Tflag==1?'show':''}}" data-a="{{Tflag}}">
+    <view class='tab-search-panel-li'>
+     <text class="tab-search-panel-li-a {{ticketType === '' ? 'c-base' : ''}}" data-tickettype='' data-text="全部类型" bindtap='getFilter'>全部类型</text>
+      <text class="tab-search-panel-li-a {{ticketType === '1' ? 'c-base' : ''}}" data-tickettype='1' data-text="景+景" bindtap='getFilter'>景+景</text>
+      <text class="tab-search-panel-li-a {{ticketType === '2' ? 'c-base' : ''}}" data-tickettype='2' data-text="景+酒" bindtap='getFilter'>景+酒</text>
+    </view>
+  </view>
+  <view class="tab-search-panel {{Tflag==2?'show':''}}" data-b="{{Tflag}}">
+    <view class='tab-search-panel-li'>
+     <text class="tab-search-panel-li-a {{items[0].property === 'id' ? 'c-base' : ''}}" data-sort='id,asc' data-text="默认排序" bindtap='getSortselect'>默认排序</text>
+      <text class="tab-search-panel-li-a {{items[0].property === 'salePrice' ? 'c-base' : ''}}" data-sort='salePrice,asc' data-text="单价最低" bindtap='getSortselect'>单价最低</text>
+      <text class="tab-search-panel-li-a {{items[0].property === 'totalRealMonthQuantity' ? 'c-base' : ''}}" data-sort='totalRealMonthQuantity,desc' data-text="销量最高" bindtap='getSortselect'>销量最高</text>
+     </view>
+  </view>
+</view>
+<!--列表  -->
+<scroll-view scroll-y="true" style="height:{{winh}}px" lower-threshold bindscroll="dropDown" class="drop-box">
+  <view class='page-list list-main'>
+    <template is="list" data="{{module,listArray}}"></template>
+  </view>
+  <view class="loading" hidden="{{!loading}}">正在载入更多...</view>
+  <view hidden="{{!loadingComplete}}" class="no-more-goods">没有更多啦</view>
+</scroll-view>
+<view class='mask' id='mask' hidden='{{onoff}}'></view>

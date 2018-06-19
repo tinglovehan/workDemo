@@ -1,0 +1,23 @@
+<view wx:if="{{orderInfo.orderStatus==='payed'}}">
+  <view class="pay-results">
+    <icon type='success' size="36"></icon>
+    <view>支付成功</view>
+  </view>
+</view>
+<view wx:else>
+  <view class="pay-results">
+    <icon type='warn' size="36"></icon>
+    <view>支付失败</view>
+  </view>
+</view>
+<view class='results-info'>
+  <view class='results-info-p1'>{{orderInfo.orderDetailList[0].goodsName}}*{{orderInfo.orderCount}}</view>
+  <view  class='results-info-p2'>已成功提交，请查收您的<text class='c-base'>短信</text></view>
+</view>
+<view class='btn-bottom'>
+   <view class='btn-handle'>
+      <navigator wx:if='{{module === "order"}}' class='btn-RP' url="../myrOrderDetial/myrOrderDetial?orderCode={{orderNo}}">查看订单详情</navigator>
+      <navigator wx:else class='btn-RP' url="../list/list?module=ticket">继续购买</navigator>
+      <view class='btn' bindtap='toIndex'>返回首页</view>
+   </view>
+</view>

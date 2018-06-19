@@ -1,0 +1,30 @@
+<import src="../template/list/common.wxml" />
+<view class='head-box ticket-head'>
+  <view class='header-tab hs-tab'>
+    <view class='tab clearfix ticket-tab'>
+      <view class='ticket-tab-li tab-li'  data-type='ticket' bindtap='tabClick' >
+        <text class="{{listType === 'ticket'  ? 'on' : ''}} tab-li-a">
+          门票
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+      </view>
+      <view class='ticket-tab-li tab-li' data-type='package' wx:if="{{packageArr.length > 0}}" bindtap='tabClick'>
+        <text class="{{listType === 'package'  ? 'on' : ''}} tab-li-a" data-type='{{listType}}'>
+         套票
+          <text class='ticket-tab-li-a-em'></text>
+        </text>
+      </view>
+    </view>
+  </view>
+</view>      
+<!--列表  -->
+<scroll-view scroll-y="true" style="height:{{winh}}px" lower-threshold bindscroll="dropDown" class="drop-box">
+  <view class='page-list list-main' wx:if="{{listType === 'ticket'}}">
+    <template is="list" data="{{module,listArray}}"></template>
+  </view>
+   <view class='page-list list-main' wx:elif="{{listType === 'package'}}">
+    <template is="package" data="{{packageArr,module}}"></template>
+  </view>
+  <view class="loading" hidden="{{!loading}}">正在载入更多...</view>
+  <view hidden="{{!loadingComplete}}" class="no-more-goods">没有更多啦</view>
+</scroll-view>

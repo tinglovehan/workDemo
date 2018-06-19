@@ -1,0 +1,158 @@
+<template name="list">
+  <block wx:if="{{module == 'ticket'}}">
+    <view wx:for="{{listArray}}">
+      <!--门票  -->
+      <view class='page-list-li'>
+        <navigator url="../detail/detail?module={{module}}&id={{item.id}}" class='pagelist-a'>
+          <view class="page-list-img">
+            <image src="{{item.imgUrl}}"></image>
+          </view>
+          <view class='page-list-info'>
+            <view class="page-list-title">
+              <text class='list-title-box'>{{item.name}}</text>
+            </view>
+            <view class='page-list-zy' wx:if="{{item.feature}}">
+              <text class='page-list-tits' wx:for="{{item.feature}}" wx:for-item="labels">{{labels}}</text>
+            </view>
+            <text class="page-list-article">{{item.introduction || ''}}</text>
+            <view class="page-list-explian">
+              <view class='fl'>
+                <text class="c-base">{{item.totalRealMonthQuantity || 0}}</text>人已购买
+              </view>
+              <view class="price fr">
+                <text>￥</text>
+                <text class='pagelist-a-strong'>{{item.lowPrice || 0}}</text>
+                <text>起</text>
+              </view>
+            </view>
+          </view>
+        </navigator>
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{module == 'order'}}">
+    <!--个人中心  -->
+    <view wx:for="{{listArray}}">
+      <view>
+        <view class='myorder-item'>
+          <view class='myorder-header'>
+            <view class='order-info'>
+              <view class='fl my-mr'>
+                <text class='font-icon {{item.orderType == "scenic" ? "icon-menp": "icon-tp"}} fl c-base'></text>
+                <text class='order-info-em fl'>{{item.orderTypeName}}</text>
+                <text class='fl my-mr'>|</text>
+                <view class='fl'>下单日期：{{item.createTime}}</view>
+              </view>
+              
+              <view class='payStatus {{item.orderStatusName.className}}'>
+                <text>{{item.orderStatusName.statusName}}</text>
+              </view>
+            </view>
+          </view>
+          <navigator class='myorder-item-a' data-url='../myrOrderDetial/myrOrderDetial?orderCode={{item.orderCode}}' url='../myrOrderDetial/myrOrderDetial?orderCode={{item.orderCode}}'
+            bindtap='getPreUrl'>
+            <view class='myorder-item-title'>{{item.goodsName}}</view>
+            <view class='myorder-item-a-p'>
+              <text class='occDate'>有效期至：{{item.occDate}}</text>
+              <text>份数: *{{item.quantity}}</text>
+            </view>
+            <view class='myorder-item-a-p2'>
+              <text class='font-icon fr icon-yjt'></text>
+            </view>
+            <view class='myorder-item-a-p myorder-item-a-p3'>
+              <text class='price'>￥{{item.newFee}}</text>
+            </view>
+          </navigator>
+        </view>
+        <!--end  -->
+      </view>
+    </view>
+  </block>
+  <block wx:elif="{{module == 'package'}}">
+    <!--套票  -->
+    <view class='page-list-li' wx:for="{{listArray}}">
+      <navigator url="../detail/detail?module=package&id={{item.id}}" class='pagelist-a'>
+        <view class="page-list-img">
+          <image src="{{item.imgUrl||''}}"></image>
+        </view>
+        <view class='page-list-info'>
+          <view class="page-list-title">
+            <text class='packageType' wx:if="{{item.ticketType === '1'}}">景+景</text>
+            <text class='packageType' wx:elif="{{item.ticketType === '2'}}">景+酒</text>
+            <text>{{item.name}}</text>
+          </view>
+          <text class="page-list-article listLimit">{{item.introduction||''}}</text>
+          <view class="page-list-explian">
+            <view class='originalPrice fr'>
+              <text>原价:</text>¥{{item.costPrice||0}}
+            </view>
+
+          </view>
+          <view class="page-list-explian">
+            <view class='fl'>
+              <text class="c-base">{{item.totalRealMonthQuantity||0}}</text>人已购买
+            </view>
+            <view class="price fr">
+              <text class='c-base'>￥</text>
+              <text class='pagelist-a-strong'>{{item.salePrice||0}}</text>
+              <text>起</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </block>
+</template>
+
+<template name="area">
+  <view class='tab-search-panel-dl'>
+    <view class="c-base ">{{name}}</view>
+    <block wx:for="{{list}}">
+      <text class="tab-search-panel-dd {{item.selected ?'c-select':''}}" data-filter="{{item.id}}" data-parentId="{{item.parentId}}"
+        data-name="{{item.name}}" bindtap='getText'>{{item.name}}</text>
+    </block>
+  </view>
+</template>
+<template name="filter">
+  <view class="tab-search-panel filterList {{flag==2?'show':''}}" data-b="{{flag}}">
+    <view class="c-base" bindtap='sortSelect' data-filter='' data-name='默认排序'>默认排序</view>
+    <block wx:for="{{sort}}">
+      <text class='filterList-dd' data-filter="{{item.key}}" data-name="{{item.value}}" bindtap='sortSelect'>{{item.value}}</text>
+    </block>
+
+  </view>
+</template>
+<!--套票搜索专用-->
+<template name="package">
+<view class='page-list-li' wx:for="{{packageArr}}">
+      <navigator url="../detail/detail?module=package&id={{item.id}}" class='pagelist-a'>
+        <view class="page-list-img">
+          <image src="{{item.imgUrl||''}}"></image>
+        </view>
+        <view class='page-list-info'>
+          <view class="page-list-title">
+            <text class='packageType' wx:if="{{item.ticketType === '1'}}">景+景</text>
+            <text class='packageType' wx:elif="{{item.ticketType === '2'}}">景+酒</text>
+            <text>{{item.name}}</text>
+          </view>
+          <text class="page-list-article listLimit">{{item.introduction||''}}</text>
+          <view class="page-list-explian">
+            <view class='originalPrice fr'>
+              <text>原价:</text>¥{{item.costPrice||0}}
+            </view>
+
+          </view>
+          <view class="page-list-explian">
+            <view class='fl'>
+              <text class="c-base">{{item.totalRealMonthQuantity||0}}</text>人已购买
+            </view>
+            <view class="price fr">
+              <text class='c-base'>￥</text>
+              <text class='pagelist-a-strong'>{{item.salePrice||0}}</text>
+              <text>起</text>
+            </view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+    </template>

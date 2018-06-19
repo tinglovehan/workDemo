@@ -1,0 +1,49 @@
+.pay-results {
+    text-align: center;
+    padding-top: 40rpx;
+}
+.results-info {
+    width: 80%;
+    margin: 1rem auto;
+    text-align: center;
+    line-height: 160%;
+}
+.results-info-p1 {
+    font-size: 30rpx;
+    color: #333;
+    line-height: 180%;
+}
+.results-info-p2 {
+    font-size: 36rpx;
+    color: #666;
+    margin-top: 0.25rem;
+}
+.btn-bottom {
+    position: fixed;
+    left: 0;
+    bottom: 20rpx;
+    width: 100%;
+}
+.btn-RP {
+    display: block;
+    text-align: center;
+   height: 80rpx;
+    line-height: 80rpx;
+    margin: 10rpx;
+    color: #333;
+    font-size:28rpx;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #FFF;
+}
+.btn {
+    display: block;
+    text-align: center;
+    height: 80rpx;
+    line-height: 80rpx;
+    margin: 10rpx;
+    color: #fff;
+    font-size: 28rpx;
+    border-radius: 5px;
+    background-color: #15bea0;
+}

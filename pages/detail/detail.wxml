@@ -1,0 +1,150 @@
+<import src="../template/detail/detailInfo.wxml"/>
+<import src="../../wxParse/wxParse.wxml" />
+<!--门票轮播  -->
+<view class="swiper-container" wx:if="{{module=='ticket'}}">
+  <swiper class="swiper_box" autoplay="{{autoplay}}"
+  duration="{{duration}}" bindchange="swiperchange" indicator-color="{{indicatorColor}}" wx:if="{{bannersData.content.length>0}}">
+   <block wx:for="{{bannersData.content}}">
+      <swiper-item class="swiper_item">
+          <image src="{{item.addr}}" class="slide-image" />
+      </swiper-item>
+     </block>
+  </swiper>
+  <view class='picNum clearfix' wx:if="{{bannersData.totalElements}}">
+    <text class='font-icon icon-tupian fl'></text>
+    <text class='picTotal'>{{bannersData.totalElements}}张</text>
+  </view>
+  <view class='headBg' wx:if="{{module=='ticket'}}">
+      <view class='salesNum'>{{infor.totalRealMonthQuantity||0}}人已购买</view>
+      <view class='title'>
+      {{infor.name}}
+      <text wx:if="{{infor.rank=='0'}}">全部景区等级</text>
+      <text wx:elif="{{infor.rank=='6'}}"> 世界文化遗产保护区</text>
+      <text wx:elif="{{infor.rank=='7'}}">国家重点保护单位</text>
+      <text wx:elif="{{infor.rank=='8'}}">其他</text>
+      <text wx:elif="{{infor.rank}}">{{infor.rank}}A景区</text>
+      </view>
+  </view>
+</view>
+<!--套票轮播  -->
+<view class="swiper-container" wx:elif="{{module=='package'}}" style="min-height:0">
+  <swiper class="swiper_box" autoplay="{{autoplay}}"
+  duration="{{duration}}" bindchange="swiperchange" indicator-color="{{indicatorColor}}" wx:if="{{infor.imgUrls.length>0}}">
+   <block wx:for="{{infor.imgUrls}}">
+      <swiper-item class="swiper_item">
+          <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+     </block>
+  </swiper>
+  <view class='picNum clearfix' wx:if="{{infor.imgUrls.length>0}}">
+    <text class='font-icon icon-tupian fl'></text>
+    <text class='picTotal'>{{infor.imgUrls.length}}张</text>
+  </view>
+</view>
+<template is="detailInfor" data="{{module,infor,couponPermission,height2,packLabels,couponList}}"></template>
+ <!--票型列表  -->
+<view wx:if="{{module=='ticket'}}">
+   <template is="productList" data="{{module,productItems,numVal,ticketTab,comboTab,bookDate,startday,activeIndex,infor,min,max}}"></template>
+    <view class='details-list menu-module intrd-font' hidden="{{ activeIndex==1? false:true}}">
+       <template is="wxParse" data="{{wxParseData:detail.nodes}}"/>
+    </view>
+     <view class='details-list menu-module intrd-font' hidden="{{ activeIndex==2? false:true}}">
+        <template is="wxParse" data="{{wxParseData:orderNotice.nodes}}"/>
+     </view>
+ </view>
+ <!--套票详情，购买，预定须知  -->
+<view wx:elif="{{module=='package'}}">
+   <template is="productList" data="{{module,PnumVal,comboTab,bookDate,startday,activeIndex,infor,min,max}}"></template>
+    <view class='details-list menu-module intrd-font' hidden="{{ activeIndex==1? false:true}}">
+       <template is="wxParse" data="{{wxParseData:description.nodes}}"/>
+    </view>
+     <view class='details-list menu-module intrd-font' hidden="{{ activeIndex==2? false:true}}">
+        <template is="wxParse" data="{{wxParseData:orderNotice.nodes}}"/>
+     </view>
+ </view>
+<!--底部  -->
+<view class='footOrderBarPos'></view>
+<view class='footOrderBar' wx:if="{{module=='ticket'}}">
+  <view class='totalSelectInfo'>
+    <view class='totalSelectInfo-span'>
+      <text class='font-icon icon-jsq c-base fl'></text>
+      <text>已选{{selectNums}}份</text>
+      <view class='selectTotalPrice'>
+        <text class='c333'>总额：</text>￥ <text class='ft32'>{{totalPrice}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{selectNums>0}}">
+     <view class='footOrderBar-a' bindtap='toOrder' data-id='{{infor.id}}'>立即预定</view>
+  </view>
+  <view wx:else>
+     <text class='footOrderBar-a footOrderBar-gray'>立即预定</text>
+  </view>
+ </view>
+ <!--套票-->
+<view class='footOrderBar' wx:elif="{{module=='package'}}">
+  <view class='totalSelectInfo'>
+    <view class='totalSelectInfo-span'>
+      <text class='font-icon icon-jsq c-base fl'></text>
+      <text>已选{{PnumVal}}份</text>
+      <view class='selectTotalPrice'>
+        <text class='c333'>总额：</text>￥ <text class='ft32'>{{PtotalPrice}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{PnumVal>0}}">
+     <view class='footOrderBar-a' bindtap='PtoOrder' data-id='{{infor.id}}'>立即预定</view>
+  </view>
+  <view wx:else>
+     <text class='footOrderBar-a footOrderBar-gray'>立即预定</text>
+  </view>
+  
+</view>
+<view class='lightBox' hidden='{{isShow}}'>
+   <!--票型查看详情  -->
+   <view wx:if="{{module=='ticket'}}">
+      <view class='m-content'>
+       <view class='order-tit'>{{orderTitle}}</view>
+       <view class='order-sprice'>价格：<text class='price mart20' >￥{{Dprice}}</text><text class='original-price'>￥{{originalprice}}</text></view>
+       <view class='wxContent'>
+        <template is="wxParse" data="{{wxParseData:content.nodes}}"/>
+       </view>
+       
+      </view>
+   </view>
+  <icon class="m-cancel" bindtap="closeBox" type="cancel" size="26"></icon>   
+</view>
+
+<!--优惠券领取 -->
+<view class='dvMsgBox' hidden='{{!isScoupon}}'>
+  <view class='top'>领取优惠券</view>
+  <view class='body'>
+     <view class='ct'>
+       <text class='ct-p'>确认领取吗？</text>
+       <text class='ct-p'>{{showCtext}}</text>
+       <text class='ct-p'>优惠券适用:{{sscope}}</text>
+       <text class='ct-p'>优惠券适用时间:{{svalidDate}}</text>
+     </view>
+  </view>
+  <view class='bottom'>
+    <view class='dvMsgBtns'>
+      <text class='dvbtn' bindtap='submitCoupon'>确认</text>
+      <text class='dvbtn' bindtap='hideCouponbox'>取消</text>
+    </view>
+  </view>
+</view>
+<view class='dvMsgBox' hidden='{{!isScoupon2}}'>
+  <view class='top'>提示</view>
+  <view class='body'>
+     <view class='ct'>
+       <text class='ct-p ct-sucess'><icon type='success' size="23"></icon>{{message}}</text>
+       
+     </view>
+  </view>
+  <view class='bottom'>
+    <view class='dvMsgBtns'>
+      <text class='dvbtn' bindtap='hideCouponbox2'>确认</text>
+    </view>
+  </view>
+</view>
+<view class='mask' id='mask' hidden='{{!isSmask}}'></view>

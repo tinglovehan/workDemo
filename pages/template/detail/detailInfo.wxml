@@ -1,0 +1,180 @@
+<template name="detailInfor" >
+  <view class='details-info ticket-d-info' wx:if="{{module=='ticket'}}">
+     <view class='order-list myorder-list'>
+        <view class='order-list-li myorder-list-li'>
+          <view class='lab-title'>
+             <text class='font-icon icon-sz fl'></text>
+             <text class='lab-title-name'>开园时间</text>
+          </view>
+          <view class='order-item'>
+            <text>{{infor.startTime?infor.startTime:''}}-{{infor.endTime||''}}</text>
+            <view class='details-tp fr detailsHeaderTags' wx:if="{{infor.feature.length>0}}">
+             <text class='details-tits tags' wx:for="{{infor.feature}}">{{item}}</text>
+            </view>
+          </view>
+        </view>
+     </view>
+  </view>
+  <!--套票  -->
+  <view class='details-info ticket-d-info' wx:elif="{{module=='package'}}" >
+    <view class='detailsTitleBox'>
+      <view class='details-title'>
+        <text class='packageType' wx:if="{{infor.ticketType=='1'}}">景+景</text>
+        <text class='packageType' wx:elif="{{infor.ticketType=='2'}}">景+酒</text>
+        <text class='packageType realNameTip' wx:if="{{infor.realnameRequired=='realname'}}">实名制</text>
+        <text>{{infor.name}}</text>
+      </view>
+      <view class='params price fr bg-box'><text class='c-base'>{{infor.totalRealMonthQuantity}}</text>人购买</view>
+      <view class='details-explian'>{{infor.introduction}}</view>
+      <view class='details-explian'>
+         <view class='details-tp fl'>
+           <text class='details-tits tags'>{{infor.playDay}}天{{infor.eveningNum}}晚</text>
+           <text wx:for="{{packLabels}}">
+           <text class='details-tits tags' wx:if="{{index<3}}">{{item}}</text>
+            </text>
+         </view>
+         <view class='price c-base fr'>￥{{infor.salePrice}}</view>
+         <view class='original-price fr'>￥{{infor.costPrice}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='page-line2'></view>
+  <view class='order-list myorder-list'>
+    <view class='order-list-li myorder-list-li' wx:if="{{module=='ticket'}}">
+      <view class='lab-title'>地址</view>
+      <view class='order-item'>
+        <view class='order-item-a' >
+          <view class='c333'>{{infor.address || ''}}</view>
+          <!-- <view class='fr localtion'><text class='fl'>到这去</text><text class='font-icon icon-dt c-base'></text></view>  -->
+        </view>
+      </view>
+    </view> 
+    <view class='order-list-li myorder-list-li' style='height:auto !important' >
+      <view class='lab-title'>
+        <text class='lab-title-name2 fl'>领券</text>
+        <text class='font-icon icon-yhqa fl'></text>
+      </view>
+      <view class='order-item' wx:if="{{couponList}}">
+        <view class='details-tp coupon-tp'  style="height:{{height2 ? height2 : '56rpx'}}">
+          <block wx:for="{{couponList}}">
+          <view class='details-tits'  wx:if="{{item.discount}}">
+             <view bindtap='showCouponbox' data-couponid= "{{item.id}}" data-scope="{{item.scope}}" data-validDate="{{item.validDate}}" data-text="满{{item.useLimit}}享{{item.discount}}折">满{{item.useLimit}}享{{item.discount}}折</view> 
+          </view>
+          <view class='details-tits' wx:elif="{{item.amountMaX}}">
+            <view bindtap='showCouponbox' data-couponid= "{{item.id}}" data-scope="{{item.scope}}" data-validDate="{{item.validDate}}" data-text="满{{item.useLimit}}随机减{{item.amountMin}}-{{item.amountMaX}}">满{{item.useLimit}}随机减{{item.amountMin}}-{{item.amountMaX}}</view>
+          </view>
+            <view class='details-tits'  wx:else >
+            <view bindtap='showCouponbox' data-couponid= "{{item.id}}" data-scope="{{item.scope}}" data-validDate="{{item.validDate}}"  data-text="满{{item.useLimit}}减{{item.amount}}">满{{item.useLimit}}减{{item.amount}}</view>
+            </view>
+          </block>  
+        </view>
+        <view class='fr' bindtap='dowmCoupon'>
+        <text class="font-icon icon-yjt {{height2 ?'zicon-xjt2':'zicon-xjt'}}"></text></view> 
+      </view>
+      <view class='order-item' wx:else>
+        <view class='details-tp coupon-tp'>
+          <text class='details-tits'>暂无优惠券</text>
+        </view>
+       
+      </view>
+    </view>   
+   </view>
+  <view class='page-line2'></view>
+</template>
+<!--票型列表 -->
+
+<template name='productList'>
+  <view class='detail-menu-box' wx:if="{{module=='ticket'}}">
+    <view class="detail-menu-li {{ activeIndex == index ? 'on' :''}}" wx:for="{{ticketTab}}" data-idx='{{index}}' bindtap='tabClick'>
+      <text class='detail-menu-name'>{{item}}</text>
+    </view>
+  </view>
+  <view class='detail-menu-box' wx:elif="{{module=='package'}}">
+     <view class="detail-menu-li {{ activeIndex == index ? 'on' :''}}" wx:for="{{comboTab}}" data-idx='{{index}}' bindtap='tabClick'>
+      <text class='detail-menu-name'>{{item}}</text>
+    </view>
+  </view>
+  <view wx:if="{{module=='ticket'}}">
+    <view class='details-list menu-module' hidden="{{ activeIndex==0? false:true}}">
+      <view class='details-list-li'>
+        <view class='order-item'>
+          <picker mode="date" class='picker2'  value="{{bookDate}}" start="{{startday}}" bindchange="bindDateChange">
+            <view class="picker">
+              <text class='picker-time'>游玩日期:</text>{{bookDate ?bookDate:startday}}
+            </view>   
+            <view class='fr '><text class='font-icon icon-yjt'></text></view> 
+          </picker>
+        </view>    
+      </view>
+      <view  wx:if="{{productItems.content.length>0}}">
+        <view class='details-list-li' wx:for="{{productItems.content}}">
+          <view class='pro-info'>
+              <view class='pro-info-title'>{{item.name}}</view>
+              <view class='pro-info-explian'>
+              <text class='realNameTip' wx:if="{{item.realnameRequired === 'realname'}}">实名制</text>
+              <text class='c-base' data-index='{{index}}' bindtap='lightboxShow'>查看详情></text></view>
+          </view>
+          <view class='pro-price'>
+            <view class='pro-price-p'>
+              <view class='price'>
+                <text class='price-em '>￥</text>
+                <text class='price-strong'>{{item.salePrice || 0}}</text>
+              </view>
+              <view class='original-price'>￥{{item.costPrice || 0}}</view>
+            </view>
+            <view class='numSpinnerBox'>
+            <view wx:if="{{item.selected===true}}" class='fl'>
+             <view class='sub' bindtap='reduceCount' data-price="{{item.salePrice}}" data-id='{{item.id}}'>
+                <text class='font-icon icon-jian'></text>
+              </view>
+              <input class='nuumbers-details' value="{{item.numVal}}" disabled='true' data-min="{{min}}" data-max="{{max}}" ></input>
+            </view>
+             
+              <view class='add' bindtap='addCount' data-price="{{item.salePrice}}" data-id='{{item.id}}' data-index='{{index}}'><text class='font-icon icon-add'></text></view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:else>
+        <view class='details-list-li nodata' wx:if="{{productItems.content.length>=0}}">
+           暂无信息
+         </view>
+      </view>
+    </view>
+  </view> 
+   <!--套票购票  -->
+  <view wx:if="{{module=='package'}}">
+    <view class='details-list menu-module' hidden="{{ activeIndex==0? false:true}}">
+      <view class='details-list-li'>
+        <view class='order-item'>
+          <picker mode="date" class='picker2'  value="{{bookDate}}" start="{{startday}}" bindchange="bindDateChange">
+            <view class="picker">
+              <text class='picker-time'>游玩日期:</text>{{bookDate ?bookDate:startday}}
+            </view>   
+            <view class='fr '><text class='font-icon icon-yjt'></text></view> 
+          </picker>
+        </view>    
+      </view>
+      <view class='details-list-li'>
+        <view class='order-item'>
+          <view class="lab-title">
+              <text class='picker-time'>购买份数:</text>
+            </view>   
+           <view class='fl'>
+            <view class='numSpinnerBox'>
+              <view class='sub' bindtap='PreduceCount' data-price="{{infor.salePrice}}" data-id='{{infor.id}}'> <text class='font-icon icon-jian'></text>
+                </view>
+                <input class='nuumbers-details' value="{{PnumVal}}" disabled='true' data-min="{{min}}" data-max="{{max}}" ></input>
+                 <view class='add' bindtap='PaddCount' data-price="{{infor.salePrice}}" data-id='{{infor.id}}' ><text class='font-icon icon-add'></text></view>
+              </view>
+              
+               
+           </view> 
+          </view>
+        </view>    
+      </view>
+  </view>
+   
+</template>
+
+

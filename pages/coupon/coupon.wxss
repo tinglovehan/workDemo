@@ -1,0 +1,508 @@
+page{
+  background: #f4f4f4;
+}
+.header-tab {
+    padding-bottom: 0;
+    width: 100%;
+    height:98rpx;
+    position: relative;
+    z-index: 34;
+}
+.myorder-tab {
+    position: fixed;
+    z-index: 33;
+    top: 0;
+    left: 0;
+    width: 100%;
+    font-size: 28rpx;
+}
+.myorder-tab-li{
+  width: 50%;
+  text-align: center;
+  line-height: 98rpx;
+}
+.counponListWrap {
+    margin: 40rpx 40rpx;
+}
+.page-list {
+    background: none;
+}
+.counponListBg {
+    position: relative;
+    background-color: #f63;
+    padding: 20rpx;
+    overflow: hidden;
+    margin-bottom: 20rpx;
+    color: #fff;
+}
+.opacity {
+    -webkit-animation: opacity 0.5s linear;
+    animation: opacity 0.5s linear;
+}
+.counponListBg:before, .counponListBg:after {
+    position: absolute;
+    content: "";
+    z-index: 1;
+}
+.counponListBg:before {
+    top: 10rpx;
+    left: 10rpx;
+    right:10rpx;
+    bottom: 10rpx;
+}
+.counponListBg .item {
+    display: block;
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    overflow: hidden;
+    padding-bottom: 10rpx;
+}
+.couponLeft {
+    width: 35%;
+    float: left;
+}
+.couponPrice {
+    text-align: center;
+    width: 100%;
+    white-space: nowrap;
+}
+.couponPrice .price {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 40rpx;
+    height: 70rpx;
+    line-height:  70rpx;
+    color: #fff;
+}
+.couponPrice .discount {
+    font-size: 42rpx;
+    margin-left: 10rpx;
+}
+.couponCondition, .couponApply, .couponDate {
+    font-size:26rpx;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.couponCondition {
+    text-align: center;
+}
+.couponRight {
+    width: 65%;
+    float: left;
+}
+.couponApply {
+    margin-top: 20rpx;
+    margin-bottom: 10rpx;
+}
+.couponCondition, .couponApply, .couponDate {
+    font-size: 24rpx;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.counponListBg.disabled {
+    background-color: #ccc;
+}
+.histroy-reason {
+    z-index: 9;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 102rpx;
+    width: 102rpx;
+    line-height: 102rpx;
+    text-align: center;
+   -webkit-background-size: contain;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.histroy-reason-span {
+    height: 102rpx;
+    width:102rpx;
+    line-height: 102rpx;
+    position: absolute;
+    color: #999;
+    font-size: 26rpx;
+    transform: rotate(45deg);
+    top: 8rpx;
+    left:4rpx;
+}
+.couponListLayer{
+  width:100%;
+  overflow: hidden;
+  height: 100%;
+  background: #fff;
+  z-index: 9999999999999999999;
+ 
+}
+.couponListLayer .couponTit {
+    text-align: center;
+    position: relative;
+    height: 98rpx;
+    line-height: 98rpx;
+    background-color: #1a81ea;
+    font-size: 30rpx;
+    color: #fff;
+}
+.couponListLayer .layer-close {
+    position: absolute;
+    right: 20rpx;
+    top: 20rpx;
+    font-size: 60rpx;
+    color: #fff;
+    transform:rotate(45deg);
+    -webkit-transform:rotate(45deg);
+}
+.couponListLayer .couponlayerBody {
+    position: absolute;
+    top:98rpx;
+    bottom: 0;
+    width: 100%;
+}
+.couponLayerTab {
+    height: 84rpx;
+}
+.couponStit {
+    font-size: 28rpx;
+    height: 84rpx;
+    line-height: 84rpx;
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+.couponStit.on {
+    color: #1a81ea;
+}
+.couponBody {
+    position: absolute;
+    top:84rpx;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f1f1f1;
+    overflow: hidden;
+    height: 100%;
+    z-index: 999;
+}
+.couponBodyTab {
+   
+    margin: 0 20rpx;
+    position: absolute;
+    top:10rpx;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: auto;
+}
+.couponBodyTab .couponList {
+    padding-bottom:20rpx;
+}
+.noSelect {
+    text-align: center;
+    font-size: 30rpx;
+    display: block;
+    height: 50rpx;
+    line-height: 50rpx;
+    padding: 20rpx 0;
+    margin-bottom: 20rpx;
+    background: #f90;
+    color: #fff;
+    border-radius: 5px;
+}
+.counponListBg {
+    position: relative;
+    background-color: #fff;
+    padding: 20rpx 20rpx;
+    overflow: hidden;
+    margin-bottom: 20rpx;
+    color: #fff;
+    border-radius: 10px;
+    border: 2rpx solid #ddd;
+    border-top: 16rpx solid #f90;
+}
+.selectCoupon {
+    color: red;
+}
+.counponListBg .item {
+    display: block;
+    position: relative;
+    z-index: 2;
+    color: #333;
+    overflow: hidden;
+}
+.couponLeft {
+    width: 35%;
+    float: left;
+}
+.couponPrice {
+    text-align: center;
+    width: 100%;
+   
+}
+.couponPrice .icon-rmb {
+    
+    vertical-align: middle;
+    font-size: 24rpx;
+   
+    margin-left: 10rpx;
+    margin-right: 10rpx;
+    color: #f90;
+}
+.couponPrice .price {
+   
+    vertical-align: middle;
+    font-size: 30rpx;
+   
+    color: #f90;
+}
+.couponCondition, .couponApply, .couponDate{
+    font-size: 24rpx;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #999999;
+    text-align: center;
+}
+.couponRight {
+    width: 65%;
+    float: left;
+}
+.couponApply {
+    margin-top: 10rpx;
+    margin-bottom: 20rpx;
+    font-size:28rpx;
+    font-weight: 400;
+    color: #333;
+}
+.counponListBg.disabled {
+    background-color: #e6e6e6;
+    border-top: 8px solid #e8cca0;
+}
+.nodata{
+  color: #f60;
+  font-size: 24rpx;
+  text-align: center;
+  padding: 20rpx 0;
+}
+.hasSelected:after {
+    position: absolute;
+    z-index: 1;
+    width:116rpx;
+    height: 116rpx;
+    line-height: 116rpx;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #f90;
+    content: '已选择';
+    text-align: center;
+    color: #f90;
+    font-size: 28rpx;
+    right: 0;
+    left: auto;
+    top: 0;
+    transform: rotate(40deg);
+   
+}
+.hasSelected.counponListBg{ background: #dcdcdc !important;}
+.bordernone{
+  border: none !important;
+}
+.red{
+  color: #ff0000;
+}
+.error{
+  color: #ff0000;
+  position: absolute;
+  right: 20rpx;
+}
+.couponListLayer .realNameTips {
+    background-color: rgba(193, 208, 5, 0.19);
+    font-size: 26rpx;
+    color: #666;
+    text-indent: 10rpx;
+    height:56rpx;
+    line-height: 56rpx;
+}
+.couponListLayer .orderRealNameDo {
+    text-align: center;
+}
+.couponListLayer .realNameBtn, .orderAddRealNameBtn {
+    display: inline-block;
+    margin: 20rpx auto;
+    text-align: center;
+    height: 68rpx;
+    line-height: 68rpx;
+    border: 1px solid #f90;
+    font-size: 24rpx;
+    width: 25%;
+    color: #f90;
+    margin-right: 20rpx;
+}
+.couponListLayer .realName-list {
+    background-color: #fff;
+    overflow: auto;
+    width: 100%;
+    top: 160rpx;
+    bottom: 0px;
+    position: absolute;
+}
+.realName-list-li{
+    border-bottom: 1px solid #eee;
+    padding: 20rpx 20rpx;
+    font-size: 28rpx;
+    color: #999;
+    overflow: hidden;
+    position: relative;
+    padding-left: 80rpx;
+}
+.nameBar {
+    color: #333;
+    height: 80rpx;
+    line-height:80rpx;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10rpx;
+    padding-bottom: 10rpx;
+    overflow: hidden;
+}
+.selectedRealName {
+    position: absolute;
+    top: 50%;
+    width: 42rpx;
+    height: 42rpx;
+    margin-top: -20rpx;
+    margin-left: -50rpx;
+    
+    background-color: #fff;
+    outline: none;
+}
+.orderDetails-li{
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+.realInfo {
+    overflow: hidden;
+}
+.realInfo .realMain {
+    float: left;
+    width: 90%;
+}
+.realInfo .realMain .info {
+    color: #666;
+    height: 40rpx;
+    padding-left: 20rpx;
+    line-height:40rpx;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.editRealName {
+    position: absolute;
+    right: 40rpx;
+    top: 40rpx;
+    border: 1px solid #aaa;
+    color: #aaa;
+    padding: 0 20rpx;
+    border-radius: 3px;
+    display: block;
+}
+.disable{
+  border: 1px solid #dcdcdc !important;
+  background: #dcdcdc;
+  color:#999;
+}
+.counponListBg .icon-yjty{
+  position: absolute;
+  right:20rpx;
+  font-size: 40rpx;
+  color: #f60;
+  top: 40rpx;
+  transform:rotate(90deg);
+-ms-transform:rotate(90deg); 	
+-moz-transform:rotate(90deg); 	
+-webkit-transform:rotate(90deg); 
+-o-transform:rotate(90deg);
+z-index: 99;
+}
+.counponListcnta{
+  width: 90%;
+  display: block;
+  height:auto;
+  overflow: hidden;
+  position: relative;
+  z-index: 999;
+}
+.icon-on{
+    transform:rotate(-90deg) !important;
+-ms-transform:rotate(-90deg) !important; 	
+-moz-transform:rotate(-90deg) !important; 	
+-webkit-transform:rotate(-90deg) !important; 
+-o-transform:rotate(-90deg) !important;
+
+}
+.instructions {
+  clear: both;
+   padding: 10rpx 20rpx;
+    background-color: #fbfbfb;
+    overflow: hidden;
+    margin-top: 20rpx;
+   border-top: 1px solid #eee;
+}
+.instructions-h5 {
+    font-size:28rpx;
+    color: #999;
+}
+.instructions-h6 {
+    font-size:24rpx;
+    color: #999;
+    padding-left: 20rpx;
+}
+.dvMsgBox {
+    position: fixed;
+    font-size: 24px;
+    width: 600rpx;
+    overflow: hidden;
+    z-index:999;
+    border-radius: 3px;
+}
+.dvMsgBox .top {
+    height: 80rpx;
+    background-color: #f90;
+    padding-left: 5%;
+    width: 95%;
+}
+.dvMsgBox .body{
+  display: block;
+  padding: 20rpx 5%;
+  width: 90%;
+  overflow: hidden;
+  text-align: center;
+  font-size: 24rpx;
+}
+.dvMsgBox .p-font{
+  font-size: 30rpx;
+  color: #f63;
+  padding-bottom: 20rpx;
+
+}
+.dvMsgBox .dv-btn{
+    display: inline-block;
+    width: 112rpx;
+    border-radius: 3px;
+   cursor: pointer;
+    color: #fff;
+    border: none;
+    height: 50rpx;
+    text-align: center;
+    background-color: #f90;
+    line-height:50rpx;
+    margin: 0px auto;
+    font-size: 26rpx;
+    margin-top: 20rpx;
+}

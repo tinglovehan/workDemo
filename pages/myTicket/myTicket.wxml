@@ -1,0 +1,43 @@
+<!--pages/myTicket/myTicket.wxml-->
+ <view class='qrcodeWrap'>
+<swiper class="swiper_box" autoplay="{{autoplay}}" duration="{{duration}}" bindchange="swiperchange" indicator-color="{{indicatorColor}}" style="height:{{winh}}px">
+  <block wx:for="{{orderInfo}}" >
+     <swiper-item  class="swiper_item" wx:if="{{item.orderStatus === 'payed'}}">
+        <view class='qrcode' data-checkNo="item.checkNo">
+              <image src="http://b2c-merchant.sendinfo.com.cn/api/order/order/getOrderInfoCheckNoByOrderCodeSP/{{item.orderCode}}"></image>
+            </view>
+            <view class='orderName'>
+              <text>订单编号:</text>
+              <text>{{item.orderCode}}</text>
+            </view>
+            <view class='checkStatus un_check' wx:if="{{item.checkStatus=='un_check'}}">未使用</view>
+            <view class='checkStatus checked' wx:elif="{{item.checkStatus=='checked'}}">已使用</view>
+            <view class='checkStatus checking' wx:elif="{{item.checkStatus=='checking'}}">检票中</view>
+            <view class='ticket-line'></view>
+            <view class='order-list myorder-list'>
+              <view class='ticketTitle order-list-li'>{{item.orderDetailList[0].goodsName}}</view>
+              <view class='order-list-li'>
+                <view class='lab-title'>游玩日期</view>
+                <view class='order-item fr'>{{palyTime[index]}}</view>
+              </view>
+              <view class='order-list-li'>
+                <view class='lab-title'>购买数量</view>
+                <view class='order-item fr'>{{item.needCheckNum || 0}}张</view>
+              </view>
+              <view class='order-list-li'>
+                <view class='lab-title'>辅助码</view>
+                <view class='order-item fr'>{{item.assistCheckNo || ''}}</view>
+              </view>
+            </view>
+          <navigator class='btn' url="../myrOrderDetial/myrOrderDetial?orderCode={{item.orderCode}}">查看详情</navigator>     
+     </swiper-item>
+  </block>
+ </swiper>  
+  <view class="dots" wx:if="{{orderInfo.length>1}}">  
+      <block wx:for="{{orderInfo}}">
+        <view class="dot {{index == swiperCurrent ? ' active' : ''}}"></view>  
+      </block>
+  </view>
+</view>
+
+

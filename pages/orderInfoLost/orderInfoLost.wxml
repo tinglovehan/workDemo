@@ -1,0 +1,10 @@
+<view class="pay-results">
+    <icon type='warn' size="36"></icon>
+    <view>抱歉! 您下单的信息已超时，请返回重新下单</view>
+</view>
+<view class='btn-bottom'>
+   <view class='btn-handle'>
+     <navigator class='btn-RP' url='../detail/detail?module={{module}}&id={{id}}'>返回详情页</navigator>
+     
+   </view>
+</view>
