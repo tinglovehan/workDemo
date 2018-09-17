@@ -96,8 +96,7 @@ globalData: {
      code:'',
      merchantId: 36,
      src:'wechatMini',
-     appid: " wx8d3dfd2817f2997b",//公众号
-     AppSecret:'c833a3fc0ce918afc8eb2ac2a65964f7'
+    
  },
 //表单验证
   WxValidate: (rules, messages) => new WxValidate(rules, messages),
