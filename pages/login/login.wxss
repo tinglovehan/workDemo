@@ -1,6 +1,0 @@
-.loginbg{
-  width: 100%;
-  background: url('http://b2c-img-jingqu.sendinfo.com.cn/group1/M00/00/01/wKjIRFpexTuADXQJAAGvY2zlVyA863.JPG') no-repeat;
- 
-  background-size:cover;
-}

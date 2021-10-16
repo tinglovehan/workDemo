@@ -1,6 +1,0 @@
-.order-list-li{
-  padding: 20rpx 20rpx;
-}
-.order-list-li .order-item{
-  margin-top: 0rpx;
-}

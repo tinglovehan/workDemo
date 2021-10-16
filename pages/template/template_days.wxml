@@ -1,8 +1,0 @@
-<template name="dayItem">
-          <view bindtap="{{hasData ? 'selectDay' :''}}" data-index="{{index}}" class="day {{hasData ? 'able' : 'disable'}} {{selectedNote == index || isSelected ? 'selected' : '' }} box box-align-center box-pack-center ">
-            <view class="day-number ">{{day}}</view>
-             <view class="day-remark "></view> 
-           
-          </view>
-</template>
-<!--hotel rili-->
